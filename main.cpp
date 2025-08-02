@@ -123,5 +123,30 @@ int main() {
         std::cout << line << '\n';
     }
 
+    // Define the path to create directory
+    std::filesystem::path directoryPath = "myDirectory";
+
+    // To check if the directory exist or not, create it if doesn't exist
+    if (!std::filesystem::exists(directoryPath)) {
+        std::filesystem::create_directory(directoryPath);
+        std::cout << "Directory created: " << directoryPath.string() << '\n';
+    }
+
+    // Define the file path within the directory and combining the directory
+    std::filesystem::path filepath = directoryPath / "my_file.txt";
+
+    // Create and open the file for writing using std::ofstream
+    if (std::ofstream file(filepath); file.is_open()) {
+        // Write data to the file
+        file << "Hello, FileSystem!";
+        file.close();
+        std::cout << "File created: " << filepath << '\n';
+    }
+    else {
+        // Handle the case if any error occured
+        std::cerr << "Failed to create file: " << filepath
+             << '\n';
+    }
+
     return 0;
 }
