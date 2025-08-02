@@ -31,13 +31,5 @@ int main() {
         std::cout << line << '\n';
     }
 
-    // Create directory and file using utility functions
-    std::filesystem::path directoryPath = "myDirectory";
-    std::filesystem::path newFilePath = directoryPath / "my_file.txt";
-
-    if (FileUtils::createDirectoryIfNotExists(directoryPath)) {
-        FileUtils::createFileWithContent(newFilePath, "Hello, FileSystem!");
-    }
-
     return 0;
 }
