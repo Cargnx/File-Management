@@ -18,6 +18,9 @@ compile_commands.json
 *.dll
 *.dylib
 
+# Ignore text files
+*.txt
+
 # Ignore IDE/editor configs
 .vscode/
 .idea/
