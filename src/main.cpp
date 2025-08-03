@@ -40,6 +40,7 @@ int main() {
     }
 
     std::cout << "Im just testing branches & with git graph. ignore it, just testing purposes, bye :)\n";
+    std::cout << "Im just testing branches & with git graph. ignore it, just testing purposes, bye :)\n";
 
     return 0;
 }
