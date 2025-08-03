@@ -39,7 +39,5 @@ int main() {
         FileUtils::createFileWithContent(newFilePath, "Hello, FileSystem!");
     }
 
-    std::cout << "Im just testing branches & with git graph. ignore it, just testing purposes, bye :)\n";
-
     return 0;
 }
