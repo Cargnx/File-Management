@@ -30,3 +30,42 @@ to build from and build more functions & ideas on top of it, e.g:
 - solving problems
 - improve my code
 - ...
+
+---
+
+# File descriptions
+
+Here is a small explanation about the codebase and what different files are 
+doing. Im still working on it so it may change later on...
+
+## File Responsibilities
+### FileHandler.cpp/h
+
+- **Purpose**: Core file read/write operations
+- **Responsible for**: Single file operations, RAII file management
+
+### FileOperationResult.cpp/h
+
+- **Purpose**: Standardized return values and error handling
+- **Responsible for**: Success/failure states, error messages, result data
+
+### FileMetadata.cpp/h
+
+- **Purpose**: Compile-time information and metadata formatting
+- **Responsible for**: Build info, timestamps, version data
+
+### FileUtils.cpp/h
+
+- **Purpose**: File system utilities and batch operations
+- **Responsible for**: Directory operations, file system helpers
+
+---
+
+| Task              | Code                                                    |
+|-------------------|---------------------------------------------------------|
+| Create directory  | FileUtils::createDirectoryIfNotExists("path")           |
+| Create file       | FileUtils::createFileWithContent("file.txt", "content") |
+| Read file         | FileHandler("file.txt").readAllLines()                  |
+| Write file        | FileHandler("file.txt").writeContent("content")         |
+| Check result      | result.isSuccess()                                      |
+| Get error message | result.message                                          |
