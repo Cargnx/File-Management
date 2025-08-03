@@ -15,5 +15,4 @@ int main() {
     FileMetaData metaData;
 
     auto result = handler.writeMetaData(metaData);
-    // ... rest of your code
 }
