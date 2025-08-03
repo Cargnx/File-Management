@@ -89,4 +89,44 @@ namespace FileUtils {
             return false;
         }
     }
+
+    FileOperationResult createFileInDirectory(const std::filesystem::path& dirName,
+                                             const std::filesystem::path& fileName,
+                                             const std::string& content,
+                                             const std::filesystem::path& basePath) {
+        try {
+            // Determine base path - use provided basePath or derive from __FILE__
+            std::filesystem::path actualBasePath;
+            if (basePath.empty()) {
+                // Note: __FILE__ won't work here since we're in the utility function
+                // Use current working directory as fallback, or let caller provide basePath
+                actualBasePath = std::filesystem::current_path();
+            } else {
+                actualBasePath = basePath;
+            }
+
+            // Construct full paths
+            std::filesystem::path directoryPath = actualBasePath / dirName;
+            std::filesystem::path filePath = directoryPath / fileName;
+
+            // Create directory if it doesn't exist
+            if (!createDirectoryIfNotExists(directoryPath)) {
+                return FileOperationResult(FileResult::DIRECTORY_ERROR,
+                                          "Failed to create directory: " + directoryPath.string());
+            }
+
+            // Create file with content
+            if (!createFileWithContent(filePath, content)) {
+                return FileOperationResult(FileResult::WRITE_ERROR,
+                                          "Failed to create file: " + filePath.string());
+            }
+
+            return FileOperationResult(FileResult::SUCCESS,
+                                      "Successfully created file: " + filePath.string());
+
+        } catch (const std::exception& e) {
+            return FileOperationResult(FileResult::WRITE_ERROR,
+                                      "Exception occurred: " + std::string(e.what()));
+        }
+    }
 }

@@ -3,40 +3,38 @@
 #include "FileHandler.h"
 
 int main() {
-    // Get the directory of this file and create file path
-    const std::filesystem::path basePath = std::filesystem::path(__FILE__).parent_path();
-    const std::filesystem::path filePath = basePath / "test.txt";
+    // Get the project root directory
+    const std::filesystem::path basePath = std::filesystem::path(__FILE__).parent_path().parent_path();
 
-    // Create file handler and metadata
+    // Create just the output directory (no file)
+    const std::filesystem::path outputDir = basePath / "output";
+    if (!FileUtils::createDirectoryIfNotExists(outputDir)) {
+        std::cerr << "Failed to create output directory\n";
+        return 1;
+    }
+
+    // Now use FileHandler to create and write the file
+    const std::filesystem::path filePath = outputDir / "test.txt";
     FileHandler handler(filePath);
     FileMetaData metaData;
 
-    // Write file
+    // Write using FileHandler's method
     const auto writeResult = handler.writeMetaData(metaData);
     if (!writeResult.isSuccess()) {
         std::cerr << writeResult.message << '\n';
         return 1;
     }
 
-    // Read file
+    // Read and display
     auto readResult = handler.readAllLines();
     if (!readResult.isSuccess()) {
         std::cerr << readResult.message << '\n';
         return 1;
     }
 
-    // Display content
     std::cout << "File contents:\n";
     for (const auto &line : readResult.lines) {
         std::cout << line << '\n';
-    }
-
-    // Create directory and file using utility functions
-    std::filesystem::path directoryPath = "myDirectory";
-    std::filesystem::path newFilePath = directoryPath / "my_file.txt";
-
-    if (FileUtils::createDirectoryIfNotExists(directoryPath)) {
-        FileUtils::createFileWithContent(newFilePath, "Hello, FileSystem!");
     }
 
     return 0;

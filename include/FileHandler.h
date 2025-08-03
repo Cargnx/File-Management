@@ -17,7 +17,8 @@ struct FileMetaData {
 enum class FileResult {
     SUCCESS,
     WRITE_ERROR,
-    READ_ERROR
+    READ_ERROR,
+    DIRECTORY_ERROR  // Added for directory creation errors
 };
 
 // Result class to return both status and data
@@ -48,4 +49,10 @@ public:
 namespace FileUtils {
     bool createDirectoryIfNotExists(const std::filesystem::path &directoryPath);
     bool createFileWithContent(const std::filesystem::path &filepath, const std::string &content);
+
+    // Helper function for creating files in directories relative to source
+    FileOperationResult createFileInDirectory(const std::filesystem::path& dirName,
+                                             const std::filesystem::path& fileName,
+                                             const std::string& content,
+                                             const std::filesystem::path& basePath = "");
 }
